@@ -26,7 +26,15 @@ public class Main {
         spartanList.add(new Spartan("Cleómbroto II", 40, 93,new SpartanDrinkImpl(), new SpartanPeeImpl(),3));
         spartanList.add(new Spartan("Leónidas II", 50, 110,new SpartanDrinkImpl(), new SpartanPeeImpl(),9));
         spartanList.add(new Spartan("Cleómenes III", 35, 70,new SpartanDrinkImpl(), new SpartanPeeImpl(),7));
-        play(vikingList,spartanList);
+        String winner = play(vikingList,spartanList);
+        if(winner.equals("Draw"))
+            System.out.println("Este torneo termino en un EMPATE!");
+        if(winner.equals("Viking"))
+            System.out.println(">>>> LOS VIKINGOS GANAN EL TORNEO <<<<");
+        if(winner.equals("Spartan"))
+            System.out.println(">>>> LOS SPARTANOS GANAN EL TORNEO <<<<");
+
+
     }
 
     public static String play(List<Viking> vikingList, List<Spartan> spartanList){
@@ -66,6 +74,8 @@ public class Main {
             if(winner.equals("Spartan")){
                 spartanPoints++;
             }
+            wait(10);
+            limpiar();
         }
         if(spartanPoints == vikingPoints){
             return "Draw";
@@ -80,12 +90,17 @@ public class Main {
 
 
     public static String versus(Viking viking, Spartan spartan){
+
+        System.out.println("->"+viking.getName()+" VS "+spartan.getName()+"<-");
+        System.out.println("\n");
+        System.out.println("\n");
         viking.Drink();
         boolean spartanLoser=false;
         boolean vikingLoser=false;
-        System.out.println("\n");
+
         spartan.Drink();
         for (int i =0; i<3; i++){
+            wait(4);
             if((viking.getProfessionalDrinker() - (int) (Math.random()*11+0) > 0)){
                 viking.Drink();
             }else{
@@ -99,18 +114,28 @@ public class Main {
                 spartanLoser=true;
             }
             if(spartanLoser && vikingLoser){ //Orinan los dos -> empate
+                System.out.println("\n");
+                System.out.println("\n");
                 System.out.println("Ninguno aguanto el poder de la cerva, EMPATE!");
                 return "Draw";
             }
             if(vikingLoser){ //Orina el vikingo -> gana el spartano
+                System.out.println("\n");
+                System.out.println("\n");
                 System.out.println("El vikingo no aguanto el meo, EL SPARTANO GANA!");
                 return "Spartan";
             }
             if(spartanLoser){ //Orina el spartano -> gana el vikingo
+                System.out.println("\n");
+                System.out.println("\n");
                 System.out.println("El spartano no aguanto el meo, EL VIKINGO GANA!");
                 return "Viking";
             }
+
         }
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println("Ambos aguantaron hasta el final , EMPATE!");
         return "Draw";//No orina ninguno -> empate
     }
 
